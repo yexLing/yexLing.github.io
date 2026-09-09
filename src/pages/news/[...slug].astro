@@ -1,0 +1,41 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import { t, formatDate } from '../../i18n/ui';
+
+export async function getStaticPaths() {
+  const items = await getCollection('news', ({ data }) => data.locale === 'en');
+  return items.map((item) => {
+    // item.slug is like "en/terminalboard" — strip the locale prefix
+    const parts = item.slug.split('/');
+    const slug = parts.slice(1).join('/');
+    return {
+      params: { slug },
+      props: { item },
+    };
+  });
+}
+
+const { item } = Astro.props;
+const locale = (item.data.locale ?? 'en') as 'en' | 'zh';
+const { Content } = await item.render();
+const base = import.meta.env.BASE_URL;
+const lBase = locale === "zh" ? "/zh" : "";
+---
+
+<Base title={`${item.data.title} · ${t(locale, 'site.brand')}`} description={item.data.title}>
+  <article class="hero">
+    <span class="eyebrow">{locale === "zh" ? <span class="cjk">随笔</span> : "Notes"}</span>
+    <h1>{item.data.title}</h1>
+    <p class="meta">{formatDate(locale, item.data.date)}</p>
+  </article>
+  <div class="prose">
+    <Content />
+  </div>
+  {item.data.link && (
+    <p class="source-link">
+      <a href={item.data.link} target="_blank" rel="noopener">{t(locale, 'section.source')}</a>
+    </p>
+  )}
+  <a class="back-link" href={`${lBase}${base}news`}>{t(locale, 'section.backNews')}</a>
+</Base>

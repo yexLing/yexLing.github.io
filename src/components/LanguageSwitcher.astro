@@ -1,0 +1,13 @@
+---
+import { type Locale, locales, defaultLocale, labelOf, translatedPath } from '../i18n/ui';
+
+const { locale = defaultLocale } = Astro.props as { locale?: Locale };
+const other = (locales as readonly string[]).find((l) => l !== locale) as Locale | undefined;
+if (!other) return;  // shouldn't happen
+
+const targetHref = translatedPath(locale, other, Astro.url.pathname);
+---
+
+<a href={targetHref} class="lang-switcher" hreflang={other} title={labelOf(other)}>
+  {labelOf(other)}
+</a>

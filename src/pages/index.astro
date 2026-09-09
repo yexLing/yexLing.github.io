@@ -1,0 +1,104 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import { t, tHtml, formatDate } from '../i18n/ui';
+
+const locale = (Astro.currentLocale ?? 'en') as 'en' | 'zh';
+const base = import.meta.env.BASE_URL;
+const lBase = locale === 'zh' ? '/zh' : '';
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft && data.locale === locale))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 3);
+
+const news = (await getCollection('news', ({ data }) => data.locale === locale))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 4);
+
+// Strip "en/" or "zh/" prefix from slug for URL building
+function cleanSlug(slug: string): string {
+  const i = slug.indexOf('/');
+  return i >= 0 ? slug.slice(i + 1) : slug;
+}
+
+const products = locale === 'zh'
+  ? [
+      {
+        title: 'Pinaday',
+        description: '一款安静的 macOS 日记便签。每天一张笔记，用可旋转的日期拨盘在时间里移动。',
+        href: `${base}pinaday`,
+      },
+      {
+        title: 'terminalboard',
+        description: '在终端里查看 TensorBoard 训练曲线，并用内置助手分析实验。',
+        href: `${lBase}${base}terminalboard`,
+      },
+    ]
+  : [
+      {
+        title: 'Pinaday',
+        description: 'A calm, local-first daily notes app for macOS, built around one note for every day.',
+        href: `${base}pinaday`,
+      },
+      {
+        title: 'terminalboard',
+        description: 'TensorBoard in your terminal, with a small AI assistant for training runs.',
+        href: `${base}terminalboard`,
+      },
+    ];
+---
+<Base title={`${t(locale, 'site.brand')} · ${t(locale, 'site.title')}`}>
+  <section class="hero">
+    <div class="hero-mark">
+      <img class="avatar" src={`${base}avatar.svg`} alt="" aria-hidden="true" width="58" height="58" />
+      {locale === 'zh' && <span class="reading">líng yī xī</span>}
+    </div>
+    <h1 set:html={tHtml(locale, 'hero.tagline')} />
+    <p class="lede">{t(locale, 'hero.lede')}</p>
+    <div class="socials">
+      <a href="https://github.com/yexLing" target="_blank" rel="noopener">GitHub</a>
+      <a href="mailto:xuluthebest@gmail.com">Email</a>
+      <a href={`${lBase}${base}about`}>{t(locale, 'nav.about')}</a>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-title">
+      <div><span class="eyebrow">{locale === 'zh' ? <span class="cjk">笔记</span> : 'Writing'}</span><h2>{t(locale, 'section.latestPosts')}</h2></div>
+      <a href={`${lBase}${base}blog`}>{t(locale, 'section.allPosts')}</a>
+    </div>
+    {posts.map((post) => (
+      <a class="card" href={`${lBase}${base}blog/${cleanSlug(post.slug)}`}>
+        <h3>{post.data.title}</h3>
+        <p class="meta">{formatDate(locale, post.data.pubDate)}</p>
+        <p>{post.data.description}</p>
+      </a>
+    ))}
+  </section>
+
+  <section>
+    <div class="section-title">
+      <div><span class="eyebrow">{locale === 'zh' ? <span class="cjk">产品</span> : 'Built'}</span><h2>{t(locale, 'section.products')}</h2></div>
+      <a href={`${lBase}${base}products`}>{t(locale, 'section.allProducts')}</a>
+    </div>
+    {products.map((product) => (
+      <a class="card" href={product.href}>
+        <h3>{product.title}</h3>
+        <p>{product.description}</p>
+      </a>
+    ))}
+  </section>
+
+  <section>
+    <div class="section-title">
+      <div><span class="eyebrow">{locale === 'zh' ? <span class="cjk">随笔</span> : 'Notes'}</span><h2>{t(locale, 'section.focusingOn')}</h2></div>
+      <a href={`${lBase}${base}news`}>{t(locale, 'section.allUpdates')}</a>
+    </div>
+    {news.map((item) => (
+      <a class="card" href={`${lBase}${base}news/${cleanSlug(item.slug)}`}>
+        <h3>{item.data.title}</h3>
+        <p class="meta">{formatDate(locale, item.data.date)}</p>
+      </a>
+    ))}
+  </section>
+</Base>

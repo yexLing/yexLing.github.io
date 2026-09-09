@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1180" height="400" viewBox="0 0 1180 400" font-family="system-ui, -apple-system, sans-serif">
+<rect width="1180" height="400" fill="#ffffff"/>
+<text x="300" y="44" font-size="16" fill="#1c1b1a" text-anchor="middle" font-weight="700">A · Open loop: grade against a recording</text>
+<rect x="70" y="80" width="200" height="60" rx="10" fill="none" stroke="#6b6558" stroke-width="2"/>
+<text x="170" y="106" font-size="13.5" fill="#1c1b1a" text-anchor="middle">recorded episode</text>
+<text x="170" y="124" font-size="12" fill="#8a857a" text-anchor="middle">the demonstrator&#8217;s states</text>
+<rect x="70" y="200" width="200" height="60" rx="10" fill="none" stroke="#C2410C" stroke-width="2"/>
+<text x="170" y="226" font-size="14" fill="#C2410C" text-anchor="middle" font-weight="700">policy</text>
+<text x="170" y="244" font-size="12" fill="#8a857a" text-anchor="middle">predicts each next action</text>
+<line x1="170" y1="140" x2="170" y2="200" stroke="#6b6558" stroke-width="2"/>
+<path d="M 170 200 L 165.5 190.0 L 174.5 190.0 Z" fill="#6b6558"/>
+<rect x="360" y="140" width="190" height="60" rx="10" fill="none" stroke="#2563EB" stroke-width="2"/>
+<text x="455" y="166" font-size="13.5" fill="#2563EB" text-anchor="middle" font-weight="600">per-frame score</text>
+<text x="455" y="184" font-size="12" fill="#8a857a" text-anchor="middle">prediction vs recording</text>
+<line x1="270" y1="110" x2="360" y2="158" stroke="#6b6558" stroke-width="2"/>
+<path d="M 360 158 L 349.0 157.2 L 353.2 149.3 Z" fill="#6b6558"/>
+<line x1="270" y1="230" x2="360" y2="182" stroke="#C2410C" stroke-width="2"/>
+<path d="M 360 182 L 353.2 190.7 L 349.0 182.8 Z" fill="#C2410C"/>
+<text x="300" y="300" font-size="13" fill="#6b6558" text-anchor="middle">the policy never acts — its errors never come back to it</text>
+<text x="300" y="322" font-size="13" fill="#C2410C" text-anchor="middle">copying inertia and predicting recorded noise score points</text>
+<text x="880" y="44" font-size="16" fill="#1c1b1a" text-anchor="middle" font-weight="700">B · Closed loop: hand it the wheel</text>
+<text x="880.0" y="279.5" font-size="13.5" fill="#C2410C" text-anchor="middle" font-weight="600">policy acts</text>
+<text x="752.4777592927414" y="151.25" font-size="13.5" fill="#6b6558" text-anchor="middle" font-weight="600">world responds</text>
+<text x="1007.5222407072586" y="151.24999999999997" font-size="13.5" fill="#2563EB" text-anchor="middle" font-weight="600">policy sees the result</text>
+<circle cx="880" cy="190" r="95" fill="none" stroke="#6b6558" stroke-width="2"/>
+<path d="M 962.3 237.5 L 963.2 225.5 L 972.2 230.8 Z" fill="#6b6558"/>
+<path d="M 797.7 237.5 L 807.7 244.2 L 798.6 249.5 Z" fill="#6b6558"/>
+<path d="M 880.0 95.0 L 869.2 100.2 L 869.2 89.8 Z" fill="#6b6558"/>
+<text x="880" y="184" font-size="12.5" fill="#1c1b1a" text-anchor="middle">each small error moves the robot</text>
+<text x="880" y="202" font-size="12.5" fill="#1c1b1a" text-anchor="middle">to states the data never showed</text>
+<text x="880" y="322" font-size="13" fill="#6b6558" text-anchor="middle">errors compound (&#8776; &#948;T&#178;); only capability survives here</text>
+<text x="590" y="370" font-size="13" fill="#1c1b1a" text-anchor="middle">The rig&#8217;s history network: open-loop error &#8722;31%, closed-loop success unchanged (70% vs 73%). The score moved; the policy didn&#8217;t.</text>
+</svg>

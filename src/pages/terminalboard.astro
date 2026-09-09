@@ -1,0 +1,107 @@
+---
+import Base from '../layouts/Base.astro';
+import { t } from '../i18n/ui';
+
+const locale = (Astro.currentLocale ?? 'en') as 'en' | 'zh';
+const base = import.meta.env.BASE_URL;
+const lBase = locale === 'zh' ? '/zh' : '';
+
+const copy = locale === 'zh'
+  ? {
+      title: 'terminalboard —— 纯终端的 TensorBoard',
+      description: 'terminalboard 是一个完全活在终端里的 TensorBoard 查看器，内置 AI 助手。',
+      kicker: 'TensorBoard in your terminal',
+      h1: '在终端里看训练曲线。',
+      ledeBefore: '不用浏览器，不用 X11，不用端口转发。',
+      ledeAfter: '，指向 logdir，曲线就以 Unicode/braille 文字实时画在 SSH 会话里。',
+      brief: '看一条曲线，本该像 tail -f 一样顺手。',
+      features: [
+        '直接读取 TensorBoard event 文件',
+        '标量曲线、直方图、文本摘要、PR 曲线',
+        '多实验叠加、平滑、log-Y、缩放和游标',
+        '小巧的过滤语法',
+        '按 a 与实验日志聊天',
+        '通过 LiteLLM 接任意模型提供商',
+      ],
+      assistant: '助手能看到当前视图和日志数据，回答问题的同时操作面板。让它只看验证集 loss、加平滑，过滤会真的应用；问哪个实验在过拟合，会得到训练和验证曲线的对比。',
+      privacy: 'AI 助手默认关闭。启用后，请求会把标签名和指标摘要发送给你配置的模型提供商，标签名可能暴露架构细节。介意的话，可以接本地 Ollama 模型。',
+      install: 'pip install terminalboard',
+      source: '源码在 GitHub，包已发布到 PyPI。',
+      back: '返回产品列表',
+    }
+  : {
+      title: 'terminalboard — TensorBoard in your terminal',
+      description: 'terminalboard is a terminal-native TensorBoard viewer with a small AI assistant.',
+      kicker: 'TensorBoard in your terminal',
+      h1: 'Watch training curves from an SSH session.',
+      ledeBefore: '',
+      ledeAfter: ', point it at a logdir, and your live TensorBoard curves render as Unicode/braille text. No browser, no X11, no port forwarding.',
+      brief: 'Checking a curve should feel like tail -f.',
+      features: [
+        'Reads TensorBoard event files directly',
+        'Scalars, histograms, text summaries, and PR curves',
+        'Multi-run overlays, smoothing, log-Y, zoom, and cursor drill-down',
+        'A compact filter grammar',
+        'Press a to chat with your runs',
+        'Works with model providers through LiteLLM',
+      ],
+      assistant: 'The assistant sees the live view and the log data, then answers and drives the dashboard in the same turn. Ask for validation losses with smoothing, and the filter is applied. Ask which run is overfitting, and it compares train and validation curves.',
+      privacy: 'The assistant stays off until configured. When enabled, requests send tag names and metric summaries to the provider you choose, and tag names can reveal architecture details. If that matters, point it at a local Ollama model.',
+      install: 'pip install terminalboard',
+      source: 'Source is on GitHub, and the package is available on PyPI.',
+      back: 'Back to products',
+    };
+---
+
+<Base title={`${copy.title} · ${t(locale, 'site.brand')}`} description={copy.description}>
+  <section class="product-hero terminalboard-hero">
+    <div class="product-hero-copy">
+      <p class="product-kicker">{copy.kicker}</p>
+      <h1>{copy.h1}</h1>
+      <p class="product-lede">{copy.ledeBefore}<code>pip install terminalboard</code>{copy.ledeAfter}</p>
+      <div class="product-actions">
+        <a href="https://pypi.org/project/terminalboard/" target="_blank" rel="noopener">PyPI</a>
+        <a href="https://github.com/yexLing/terminalboard" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
+    <figure class="product-shot terminal-shot">
+      <img src="/images/products/terminalboard/demo.gif" alt="terminalboard rendering TensorBoard curves inside a terminal." width="1200" height="720" />
+    </figure>
+  </section>
+
+  <section class="product-details-grid">
+    <div class="detail-panel detail-wide">
+      <p class="product-kicker">Design brief</p>
+      <h2>{copy.brief}</h2>
+      <p>{copy.description}</p>
+    </div>
+    <div class="detail-panel">
+      <p class="product-kicker">Install</p>
+      <p><code>{copy.install}</code></p>
+    </div>
+  </section>
+
+  <section class="feature-overview">
+    <div class="section-title">
+      <div>
+        <span class="eyebrow">{locale === 'zh' ? <span class="cjk">功能</span> : 'Features'}</span>
+        <h2>{locale === 'zh' ? '远程训练时少开一个浏览器。' : 'One less browser tab on remote machines.'}</h2>
+      </div>
+    </div>
+    <div class="feature-list">
+      {copy.features.map((feature) => <span>{feature}</span>)}
+    </div>
+  </section>
+
+  <section class="product-feature">
+    <div>
+      <p class="product-kicker">Assistant</p>
+      <h2>{locale === 'zh' ? '按 a，跟实验聊天。' : 'Press a and chat with your runs.'}</h2>
+      <p>{copy.assistant}</p>
+      <p>{copy.privacy}</p>
+      <p>{copy.source}</p>
+    </div>
+  </section>
+
+  <a class="back-link" href={`${lBase}${base}products`}>{copy.back}</a>
+</Base>

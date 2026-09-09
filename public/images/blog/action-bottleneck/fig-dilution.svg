@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1180" height="330" viewBox="0 0 1180 330" font-family="system-ui, -apple-system, sans-serif">
+<rect width="1180" height="330" fill="#ffffff"/>
+<text x="60" y="40" font-size="17" font-weight="700" fill="#1c1b1a">Where the unpredictable share sits in each target&#8217;s variance</text>
+<text x="60" y="74" font-size="14" font-weight="700" fill="#2563EB">vision target o<tspan font-size="10" dy="3">t+1</tspan><tspan dy="-3"> — this rig; a real frame pads even more</tspan></text>
+<rect x="60" y="84" width="995" height="58" fill="#dbe7fb" stroke="#2563EB" stroke-width="1.5"/>
+<rect x="1055.0" y="84" width="5.0" height="58" fill="#C2410C"/>
+<text x="558" y="118" font-size="13.5" fill="#2563EB" text-anchor="middle">momentum m(x) — predictable from the input · 99.7%</text>
+<line x1="1057.5" y1="142" x2="1020.0" y2="176" stroke="#C2410C" stroke-width="1.4"/>
+<text x="1014" y="192" font-size="12.5" fill="#C2410C" text-anchor="end">the decision-bearing innovation — 0.27% of variance (ceiling on B<tspan font-size="9.5" dy="3">V</tspan><tspan dy="-3">)</tspan></text>
+<text x="60" y="216" font-size="14" font-weight="700" fill="#C2410C">action target a<tspan font-size="10" dy="3">t</tspan><tspan dy="-3"> — measured on this rig</tspan></text>
+<rect x="60" y="226" width="710.0" height="58" fill="#f2ede3" stroke="#6b6558" stroke-width="1.5"/>
+<rect x="770.0" y="226" width="290.0" height="58" fill="#C2410C"/>
+<text x="415" y="260" font-size="13.5" fill="#6b6558" text-anchor="middle">predictable from the input · 71%</text>
+<text x="915.0" y="260" font-size="13.5" fill="#ffffff" text-anchor="middle" font-weight="700">hidden decisions + noise · 29% = B<tspan font-size="10" dy="3">A</tspan></text>
+<text x="60" y="316" font-size="13" fill="#8a857a">Both targets carry the same unpredictable decision slice. One buries it under padding; the other wears it as its floor. Same misses, different denominator.</text>
+</svg>

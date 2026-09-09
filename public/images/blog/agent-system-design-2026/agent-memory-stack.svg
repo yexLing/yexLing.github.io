@@ -1,0 +1,50 @@
+<svg width="1200" height="760" viewBox="0 0 1200 760" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Agent memory 运行时结构</title>
+  <desc id="desc">输入事件进入记忆控制器，记忆控制器装配活跃上下文，并维护持久化记忆。</desc>
+  <rect width="1200" height="760" fill="#f7f8f4"/>
+
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#52615a"/>
+    </marker>
+  </defs>
+
+  <g font-family="Inter, Arial, sans-serif">
+    <text x="72" y="70" font-size="32" font-weight="700" fill="#17201b">Agent memory 运行时结构</text>
+    <text x="72" y="108" font-size="17" fill="#53605a">输入事件先进入记忆控制器；控制器装配活跃上下文，维护持久化记忆。</text>
+
+    <rect x="110" y="150" width="980" height="88" rx="12" fill="#eef1ea" stroke="#a8b3a7" stroke-width="1.2"/>
+    <text x="142" y="185" font-size="21" font-weight="700" fill="#263027">输入事件流</text>
+    <text x="142" y="214" font-size="15" fill="#55625b">用户请求 · 模型输出 · 工具返回 · 网页/文档 · 日志 · 测试结果 · 人工反馈 · 环境状态</text>
+
+    <rect x="270" y="302" width="660" height="122" rx="12" fill="#f4e3cc" stroke="#ce9f69" stroke-width="1.4"/>
+    <text x="306" y="344" font-size="23" font-weight="700" fill="#3b2714">记忆控制器</text>
+    <text x="306" y="376" font-size="16" fill="#624829">策略 · 路由 · 检索 · 排序 · 压缩 · 写入 · 过期 · 审计</text>
+    <text x="306" y="402" font-size="15" fill="#624829">控制哪些材料进入上下文，哪些内容写入持久化记忆。</text>
+
+    <rect x="88" y="520" width="470" height="142" rx="12" fill="#d9eee2" stroke="#88b49b" stroke-width="1.4"/>
+    <text x="124" y="558" font-size="23" font-weight="700" fill="#193326">活跃上下文</text>
+    <text x="124" y="586" font-size="16" fill="#365447">当前 prompt · 检索证据 · 工具结果</text>
+    <text x="124" y="612" font-size="16" fill="#365447">开发者规则 · 当前计划 · attention state</text>
+    <text x="124" y="638" font-size="16" fill="#365447">KV cache / prompt cache</text>
+
+    <rect x="642" y="520" width="470" height="142" rx="12" fill="#e8e0f1" stroke="#aa92c3" stroke-width="1.4"/>
+    <text x="678" y="558" font-size="23" font-weight="700" fill="#30223e">持久化记忆</text>
+    <text x="678" y="586" font-size="16" fill="#534262">情景日志 · 事实/偏好 · 技能/流程</text>
+    <text x="678" y="612" font-size="16" fill="#534262">文件 · SQL · FTS · vector store · graph</text>
+    <text x="678" y="638" font-size="16" fill="#534262">来源 · 时间 · 权限 · 版本历史</text>
+
+    <path d="M600 238 L600 302" stroke="#52615a" stroke-width="2.3" fill="none" marker-end="url(#arrow)"/>
+    <text x="620" y="276" font-size="14" fill="#4d5b54">标准化 / 标注</text>
+
+    <path d="M438 424 C392 460 356 488 326 520" stroke="#52615a" stroke-width="2.3" fill="none" marker-end="url(#arrow)"/>
+    <text x="318" y="480" font-size="14" fill="#4d5b54">上下文装配</text>
+
+    <path d="M772 424 C826 456 858 486 886 520" stroke="#52615a" stroke-width="2.3" fill="none" marker-end="url(#arrow)"/>
+    <text x="828" y="488" font-size="14" fill="#4d5b54">写入 / 更新</text>
+
+    <path d="M762 520 C744 480 718 450 680 424" stroke="#52615a" stroke-width="2.3" fill="none" marker-end="url(#arrow)"/>
+    <text x="696" y="462" font-size="14" fill="#4d5b54">检索</text>
+
+  </g>
+</svg>

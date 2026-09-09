@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1180" height="300" viewBox="0 0 1180 300" font-family="system-ui, -apple-system, sans-serif">
+<rect width="1180" height="300" fill="#ffffff"/>
+<text x="50" y="30" font-size="17" font-weight="700" fill="#1c1b1a">One timestep of the causal chain — and where each head taps it</text>
+<rect x="50" y="52" width="192" height="96" rx="9" fill="#FAF8F3" stroke="#6b6558" stroke-width="1.6" stroke-dasharray="5 4"/>
+<rect x="337" y="52" width="192" height="96" rx="9" fill="#FBEEE6" stroke="#C2410C" stroke-width="1.6"/>
+<rect x="624" y="52" width="192" height="96" rx="9" fill="#F3F1EC" stroke="#b7b1a4" stroke-width="1.6"/>
+<rect x="936" y="52" width="192" height="96" rx="9" fill="#EBF1FD" stroke="#2563EB" stroke-width="1.6"/>
+<line x1="246" y1="100" x2="324" y2="100" stroke="#6b6558" stroke-width="1.8"/>
+<path d="M 333 100 L 324 95.2 L 324 104.8 Z" fill="#6b6558"/>
+<text x="289" y="86" font-size="12" font-style="italic" fill="#6b6558" text-anchor="middle">decides</text>
+<line x1="533" y1="100" x2="611" y2="100" stroke="#6b6558" stroke-width="1.8"/>
+<path d="M 620 100 L 611 95.2 L 611 104.8 Z" fill="#6b6558"/>
+<text x="576" y="86" font-size="12" font-style="italic" fill="#6b6558" text-anchor="middle">executes</text>
+<line x1="820" y1="100" x2="923" y2="100" stroke="#6b6558" stroke-width="1.8"/>
+<path d="M 932 100 L 923 95.2 L 923 104.8 Z" fill="#6b6558"/>
+<text x="876" y="86" font-size="12" font-style="italic" fill="#6b6558" text-anchor="middle">shows the result</text>
+<text x="146" y="76" font-size="14" fill="#1c1b1a" text-anchor="middle" font-weight="700">hidden <tspan font-style="italic">z</tspan>, tremor <tspan font-style="italic">ε</tspan></text>
+<text x="146" y="98" font-size="12.5" fill="#7C4DBE" text-anchor="middle" font-weight="600"><tspan font-style="italic">z</tspan>: side coin · turn style</text>
+<text x="146" y="117" font-size="12.5" fill="#6b6558" text-anchor="middle"><tspan font-style="italic">ε</tspan>: jitter on the command</text>
+<text x="146" y="138" font-size="12" fill="#8a857a" text-anchor="middle" font-style="italic">recorded nowhere</text>
+<text x="433" y="76" font-size="14" fill="#C2410C" text-anchor="middle" font-weight="700">action <tspan font-style="italic">a</tspan><tspan font-size="10" dy="3">t</tspan></text>
+<text x="433" y="98" font-size="12.5" fill="#1c1b1a" text-anchor="middle">= <tspan font-style="italic">π</tspan>(<tspan font-style="italic">o</tspan><tspan font-size="10" dy="3">t</tspan><tspan dy="-3">, </tspan><tspan font-style="italic">z</tspan>) + <tspan font-style="italic">ε</tspan><tspan font-size="10" dy="3">t</tspan></text>
+<text x="433" y="117" font-size="12.5" fill="#6b6558" text-anchor="middle">the raw command</text>
+<text x="433" y="138" font-size="12" fill="#8a857a" text-anchor="middle" font-style="italic">what the teleop log stores</text>
+<text x="720" y="76" font-size="14" fill="#1c1b1a" text-anchor="middle" font-weight="700">arm inertia</text>
+<text x="720" y="98" font-size="12.5" fill="#1c1b1a" text-anchor="middle">keeps 0.6 of old velocity</text>
+<text x="720" y="117" font-size="12.5" fill="#6b6558" text-anchor="middle">lets 0.4 of <tspan font-style="italic">a</tspan><tspan font-size="10" dy="3">t</tspan><tspan dy="-3"> through</tspan></text>
+<text x="720" y="138" font-size="12" fill="#8a857a" text-anchor="middle" font-style="italic">the momentum cushion</text>
+<text x="1032" y="76" font-size="14" fill="#2563EB" text-anchor="middle" font-weight="700">observation <tspan font-style="italic">o</tspan><tspan font-size="10" dy="3">t+1</tspan></text>
+<text x="1032" y="98" font-size="12.5" fill="#1c1b1a" text-anchor="middle">= <tspan font-style="italic">f</tspan>(<tspan font-style="italic">o</tspan><tspan font-size="10" dy="3">t</tspan><tspan dy="-3">, </tspan><tspan font-style="italic">a</tspan><tspan font-size="10" dy="3">t</tspan><tspan dy="-3">)</tspan></text>
+<text x="1032" y="117" font-size="12.5" fill="#6b6558" text-anchor="middle">the filtered response</text>
+<text x="1032" y="138" font-size="12" fill="#8a857a" text-anchor="middle" font-style="italic">what the camera sees</text>
+<path d="M 433 152 L 427.5 161 L 438.5 161 Z" fill="#C2410C"/>
+<line x1="433" y1="161" x2="433" y2="176" stroke="#C2410C" stroke-width="2"/>
+<text x="433" y="192" font-size="14" fill="#C2410C" text-anchor="middle" font-weight="700">ACTION HEAD predicts here</text>
+<text x="433" y="212" font-size="12.5" fill="#1c1b1a" text-anchor="middle">upstream of the filter — faces <tspan font-style="italic">z</tspan> and <tspan font-style="italic">ε</tspan> head-on</text>
+<text x="433" y="231" font-size="13.5" fill="#C2410C" text-anchor="middle" font-weight="700">measured floor <tspan font-style="italic">B</tspan><tspan font-size="10" dy="3">A</tspan><tspan dy="-3"> ≈ 0.29</tspan></text>
+<text x="433" y="250" font-size="12" fill="#8a857a" text-anchor="middle">three-tenths of the target — Claim 2</text>
+<path d="M 1032 152 L 1026.5 161 L 1037.5 161 Z" fill="#2563EB"/>
+<line x1="1032" y1="161" x2="1032" y2="176" stroke="#2563EB" stroke-width="2"/>
+<text x="1032" y="192" font-size="14" fill="#2563EB" text-anchor="middle" font-weight="700">VISION HEAD predicts here</text>
+<text x="1032" y="212" font-size="12.5" fill="#1c1b1a" text-anchor="middle">downstream — behind the momentum cushion</text>
+<text x="1032" y="231" font-size="13.5" fill="#2563EB" text-anchor="middle" font-weight="700">ceiling <tspan font-style="italic">B</tspan><tspan font-size="10" dy="3">V</tspan><tspan dy="-3"> ≤ 0.0027</tspan></text>
+<text x="1032" y="250" font-size="12" fill="#8a857a" text-anchor="middle">variance share, not a measured floor — Claim 3</text>
+<text x="50" y="278" font-size="13.5" fill="#6b6558">Both heads read the identical input — the last two observations. It contains neither <tspan font-style="italic">z</tspan> nor <tspan font-style="italic">ε</tspan>; the two targets differ only in how much of them they still carry.</text>
+</svg>

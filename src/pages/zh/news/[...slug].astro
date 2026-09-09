@@ -1,0 +1,17 @@
+---
+import { getCollection } from 'astro:content';
+import Page from '../../news/[...slug].astro';
+
+export async function getStaticPaths() {
+  const items = await getCollection('news', ({ data }) => data.locale === 'zh');
+  return items.map((item) => {
+    const parts = item.slug.split('/');
+    const slug = parts.slice(1).join('/');
+    return {
+      params: { slug },
+      props: { item },
+    };
+  });
+}
+---
+<Page {...Astro.props} />

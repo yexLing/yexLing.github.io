@@ -1,0 +1,122 @@
+---
+import Base from '../layouts/Base.astro';
+
+const supportEmail = 'xuluthebest@gmail.com';
+const storeLabel = 'Mac App Store link coming soon';
+const title = 'Pinaday · One note for every day';
+const description = 'Pinaday is a calm, local-first daily notes app for macOS with Markdown, tasks, images, search, and optional iCloud sync.';
+
+const features = [
+  'A dedicated note for every day',
+  'A tactile date dial for moving between days',
+  'Markdown headings, lists, nested tasks, tables, quotes, links, and code blocks',
+  'Direct image pasting with automatic text recognition',
+  'Fast search across notes, dates, and note contents',
+  'Local-first storage with optional iCloud sync',
+  'Yellow, light, and dark themes',
+  'Pin the note above other windows',
+  'Adjustable note zoom and window opacity',
+  'Designed specifically for macOS',
+];
+---
+
+<Base
+  title={title}
+  description={description}
+  ogImage="/images/products/pinaday/01-pinaday.png"
+  showLanguageSwitcher={false}
+  showAlternates={false}
+>
+  <section class="product-hero pinaday-hero">
+    <div class="product-hero-copy">
+      <div class="product-brand">
+        <img src="/images/products/pinaday/icon.png" alt="" width="48" height="48" />
+        <span>Pinaday</span>
+      </div>
+      <p class="product-kicker">Local-first daily notes for macOS</p>
+      <h1>One note for every day.</h1>
+      <p class="product-lede">Capture plans, tasks, images, and the moments worth remembering in a simple daily note that is always close by.</p>
+      <div class="product-actions">
+        <span class="store-badge store-badge-disabled" aria-label={storeLabel}>{storeLabel}</span>
+        <a href="/pinaday/support">Support</a>
+        <a href="/pinaday/privacy">Privacy</a>
+      </div>
+    </div>
+    <figure class="product-shot hero-shot">
+      <img src="/images/products/pinaday/01-pinaday.png" alt="Pinaday App Store artwork showing one note for every day and a real Pinaday daily note window." width="2560" height="1600" />
+    </figure>
+  </section>
+
+  <section class="product-feature">
+    <figure class="product-shot">
+      <img src="/images/products/pinaday/02-pinaday.png" alt="Pinaday screenshot titled Plan the moments that matter, showing tasks, tables, and images in a daily note." loading="lazy" width="2560" height="1600" />
+    </figure>
+    <div>
+      <p class="product-kicker">Plans, tasks, images</p>
+      <h2>Plan the moments that matter.</h2>
+      <p>Pinaday keeps daily planning close to the surface. A day can hold a checklist, a small schedule, a shopping list, pasted images, or a few lines you do not want to lose.</p>
+    </div>
+  </section>
+
+  <section class="product-feature product-feature-reverse">
+    <figure class="product-shot">
+      <img src="/images/products/pinaday/03-pinaday.png" alt="Pinaday screenshot titled Markdown, beautifully rendered, showing headings, nested tasks, tables, lists, and code." loading="lazy" width="2560" height="1600" />
+    </figure>
+    <div>
+      <p class="product-kicker">Structured Markdown</p>
+      <h2>Markdown, beautifully rendered.</h2>
+      <p>Write naturally with headings, lists, nested tasks, tables, quotes, links, and code blocks. Tasks stay inside the note instead of becoming a separate system to maintain.</p>
+    </div>
+  </section>
+
+  <section class="product-feature">
+    <figure class="product-shot">
+      <img src="/images/products/pinaday/04-pinaday.png" alt="Pinaday screenshot showing search across notes and dates." loading="lazy" width="2560" height="1600" />
+    </figure>
+    <div>
+      <p class="product-kicker">Search and return</p>
+      <h2>Find any note in seconds.</h2>
+      <p>Search across dates, note text, and recognized text from pasted images, then jump back to the right day without breaking the daily rhythm.</p>
+    </div>
+  </section>
+
+  <section class="feature-overview">
+    <div class="section-title">
+      <div>
+        <span class="eyebrow">Overview</span>
+        <h2>Built for the small notes that make a day legible.</h2>
+      </div>
+    </div>
+    <div class="feature-list">
+      {features.map((feature) => <span>{feature}</span>)}
+    </div>
+  </section>
+
+  <section class="product-feature product-feature-reverse">
+    <figure class="product-shot">
+      <img src="/images/products/pinaday/05-pinaday.png" alt="Pinaday settings screenshot showing yellow, light, and dark themes plus local-only and iCloud sync choices." loading="lazy" width="2560" height="1600" />
+    </figure>
+    <div>
+      <p class="product-kicker">Local first, sync when you choose</p>
+      <h2>Your notes. Your choice.</h2>
+      <p>Pinaday stores notes and pasted images locally on your Mac by default. Optional iCloud sync can keep notes, task states, and pasted images available across Macs using the same Apple Account.</p>
+    </div>
+  </section>
+
+  <section class="product-details-grid">
+    <div class="detail-panel">
+      <h2>System requirements</h2>
+      <p>Pinaday is designed specifically for macOS and supports macOS 13 or later.</p>
+    </div>
+    <div class="detail-panel">
+      <h2>Availability</h2>
+      <p>Pinaday will be distributed through the Mac App Store. The public listing URL is not final yet.</p>
+      <span class="store-badge store-badge-disabled" aria-label={storeLabel}>{storeLabel}</span>
+    </div>
+    <div class="detail-panel">
+      <h2>Support</h2>
+      <p>Questions, bug reports, and feature ideas are welcome at <a href={`mailto:${supportEmail}`}>{supportEmail}</a>.</p>
+      <p><a href="/pinaday/support">Open support page</a> · <a href="/pinaday/privacy">Read privacy policy</a></p>
+    </div>
+  </section>
+</Base>

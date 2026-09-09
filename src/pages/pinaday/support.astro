@@ -1,0 +1,25 @@
+---
+import Base from '../../layouts/Base.astro';
+
+const email = 'xuluthebest@gmail.com';
+---
+
+<Base
+  title="Pinaday Support"
+  description="Support contact for Pinaday."
+  showLanguageSwitcher={false}
+  showAlternates={false}
+>
+  <section class="hero support-hero">
+    <span class="eyebrow">Support</span>
+    <h1>Pinaday Support</h1>
+    <p class="lede">Report problems, share feedback, or suggest features for Pinaday.</p>
+  </section>
+
+  <section class="support-panel">
+    <p class="product-kicker">Support email</p>
+    <p class="support-email"><a href={`mailto:${email}`}>{email}</a></p>
+    <p>When you write in, it helps to include your macOS version, the Pinaday version, and a short description of what happened.</p>
+    <p><a href="/pinaday">Back to Pinaday</a></p>
+  </section>
+</Base>

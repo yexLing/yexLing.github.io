@@ -1,0 +1,131 @@
+---
+import '../styles/global.css';
+import LanguageSwitcher from '../components/LanguageSwitcher.astro';
+import { t, locales } from '../i18n/ui';
+
+const locale = (Astro.currentLocale ?? 'en') as 'en' | 'zh';
+const base = import.meta.env.BASE_URL;
+// Locale prefix: all internal links stay within the current locale
+const lBase = locale === 'zh' ? '/zh' : '';
+
+// ── Default meta (can be overridden by page props) ──
+const {
+  title = t(locale, 'meta.defaultTitle'),
+  description = t(locale, 'meta.defaultDescription'),
+  ogImage,
+  ogType = 'website',
+  showLanguageSwitcher = true,
+  showAlternates = true,
+} = Astro.props;
+
+// ── Nav ──
+const nav = [
+  { href: `${lBase}${base}`,     label: t(locale, 'nav.home') },
+  { href: `${lBase}${base}blog`,   label: t(locale, 'nav.blog') },
+  { href: `${lBase}${base}products`, label: t(locale, 'nav.products') },
+  { href: `${lBase}${base}news`,   label: t(locale, 'nav.news') },
+  { href: `${lBase}${base}about`,  label: t(locale, 'nav.about') },
+];
+
+// ── SEO: canonical & hreflang ──
+// Strip any locale prefix to get the "clean" path, then reconstruct.
+let cleanPath = Astro.url.pathname;
+if (!cleanPath.endsWith('/')) cleanPath += '/';
+for (const l of locales) {
+  const prefix = `/${l}`;
+  if (cleanPath === `${prefix}/` || cleanPath.startsWith(`${prefix}/`)) {
+    cleanPath = cleanPath.slice(prefix.length); // → "/…"
+    break;
+  }
+}
+const canonicalUrl = new URL(cleanPath, Astro.site).href;
+const enUrl = new URL(cleanPath, Astro.site).href;
+const zhUrl = new URL(`/zh${cleanPath}`, Astro.site).href;
+const isZh = locale === 'zh';
+const ogImageUrl = ogImage ? new URL(ogImage, Astro.site).href : undefined;
+---
+
+<!doctype html>
+<html lang={isZh ? 'zh-CN' : 'en'}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script is:inline>
+      // Apply a saved theme choice before first paint so there is no flash.
+      try {
+        var savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'light' || savedTheme === 'dark') {
+          document.documentElement.setAttribute('data-theme', savedTheme);
+        }
+      } catch (e) {}
+    </script>
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href={`${base}avatar.svg`} />
+    <link rel="icon" type="image/png" href={`${base}favicon.png`} />
+    <link rel="apple-touch-icon" href={`${base}favicon.png`} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:locale" content={isZh ? 'zh_CN' : 'en_US'} />
+    {ogImageUrl && <meta property="og:image" content={ogImageUrl} />}
+    <meta name="twitter:card" content={ogImageUrl ? 'summary_large_image' : 'summary'} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    {ogImageUrl && <meta name="twitter:image" content={ogImageUrl} />}
+    <link rel="canonical" href={canonicalUrl} />
+    {showAlternates && <link rel="alternate" hreflang="en" href={enUrl} />}
+    {showAlternates && <link rel="alternate" hreflang="zh" href={zhUrl} />}
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&family=Inter:wght@400;500;600&family=Noto+Serif+SC:wght@600;700&display=swap"
+    />
+  </head>
+  <body>
+    <header class="site-header">
+      <nav class="nav">
+        <a class="brand" href={`${lBase}${base}`} aria-label={`${locale === 'zh' ? '凌一而㬢' : 'Yex Ling'} — ${t(locale, 'nav.home')}`}>
+          <img class="avatar" src={`${base}avatar.svg`} alt="" aria-hidden="true" width="38" height="38" />
+          <span class="wordmark">{locale === 'zh' ? '凌一而㬢' : 'Yex Ling'}</span>
+        </a>
+        <ul>
+          {nav.map((item) => <li><a href={item.href}>{item.label}</a></li>)}
+        </ul>
+        <div class="nav-tools">
+          {showLanguageSwitcher && <LanguageSwitcher locale={locale} />}
+          <button class="theme-toggle" type="button" aria-label={isZh ? '切换明暗主题' : 'Toggle light/dark theme'}>
+            <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="4.5" />
+              <path d="M12 2.5v2.5M12 19v2.5M2.5 12H5M19 12h2.5M5.3 5.3l1.8 1.8M16.9 16.9l1.8 1.8M18.7 5.3l-1.8 1.8M7.1 16.9l-1.8 1.8" />
+            </svg>
+            <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11z" />
+            </svg>
+          </button>
+        </div>
+      </nav>
+    </header>
+    <main class="container">
+      <slot />
+    </main>
+    <footer class="site-footer">
+      <div class="container">
+        <div class="seal-small" aria-hidden="true">{locale === 'zh' ? '凌一而㬢' : 'Yex Ling'}</div>
+        © {new Date().getFullYear()} · {t(locale, 'footer.builtWith')}
+        <a href="https://astro.build">Astro</a> · {t(locale, 'footer.hostedOn')}
+      </div>
+    </footer>
+    <script is:inline>
+      document.querySelector('.theme-toggle').addEventListener('click', function () {
+        var root = document.documentElement;
+        var effective = root.getAttribute('data-theme') ||
+          (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+        var next = effective === 'light' ? 'dark' : 'light';
+        root.setAttribute('data-theme', next);
+        try { localStorage.setItem('theme', next); } catch (e) {}
+      });
+    </script>
+  </body>
+</html>

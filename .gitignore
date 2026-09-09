@@ -1,0 +1,27 @@
+# build output
+dist/
+.output/
+
+# dependencies
+node_modules/
+
+# astro
+.astro/
+
+# logs & env
+*.log
+.env
+.env.production
+.DS_Store
+
+# editor
+.vscode/
+.idea/
+
+# Local QA artifacts
+.playwright-mcp/
+/home-desktop.png
+/home-mobile.png
+
+# Raw source materials (not for publishing)
+raw_materials_not_commit_not_push/

@@ -1,0 +1,62 @@
+---
+import Base from '../../layouts/Base.astro';
+
+const email = 'xuluthebest@gmail.com';
+const developerName = 'Lu Liu';
+const applePrivacyUrl = 'https://www.apple.com/legal/privacy/';
+const iCloudStorageUrl = 'https://support.apple.com/guide/icloud/icloud-party-apps-mm62d92d6b3e/icloud';
+---
+
+<Base
+  title="Pinaday Privacy Policy"
+  description="Privacy policy for Pinaday."
+  showLanguageSwitcher={false}
+  showAlternates={false}
+>
+  <section class="hero support-hero">
+    <span class="eyebrow">Privacy</span>
+    <h1>Pinaday Privacy Policy</h1>
+    <p class="lede">Last updated September 4, 2026.</p>
+  </section>
+
+  <section class="policy-page">
+    <h2>Overview</h2>
+    <p>This privacy policy applies specifically to the Pinaday macOS application, developed by {developerName}. Pinaday is a local-first daily notes app built around one note for every day, with optional iCloud synchronization for people who want their notes available across Macs using the same Apple Account.</p>
+
+    <h2>Local storage</h2>
+    <p>In Local only mode, Pinaday stores notes, task states, pasted images, OCR results, and settings on your Mac in Pinaday's sandboxed app-data directory. Nothing is uploaded to iCloud in this mode.</p>
+    <p>The Pinaday developer does not receive or have access to this locally stored content.</p>
+
+    <h2>Optional iCloud synchronization</h2>
+    <p>If you enable iCloud sync, Pinaday keeps a local offline copy and synchronizes note pages, task states, and pasted images through <a href={applePrivacyUrl} target="_blank" rel="noopener">Apple CloudKit</a>. This data is stored in the private CloudKit database associated with your Apple Account. It is not visible in the developer portal, and Pinaday does not send a separate copy to developer-operated servers.</p>
+
+    <h2>Image text recognition</h2>
+    <p>Pinaday can recognize text in pasted images so that image text can be selected and found by search. The current macOS app uses Apple Vision and VisionKit frameworks on the Mac for this processing. Recognized text is cached in local app data for search.</p>
+
+    <h2>Device-local settings</h2>
+    <p>Search indexes, window position, theme, language, pinning, window opacity, and login behavior are device-local settings.</p>
+
+    <h2>Data collection and sharing</h2>
+    <p>Pinaday does not collect your note contents, pasted images, recognized text, search history, device identifiers, or app-usage information on developer-operated servers. Pinaday does not sell user data and does not include advertising, third-party analytics, or third-party crash-reporting SDKs.</p>
+    <p>When optional iCloud sync is enabled, Apple processes the synchronized data as part of its iCloud and CloudKit services under Apple's applicable terms and <a href={applePrivacyUrl} target="_blank" rel="noopener">privacy policy</a>.</p>
+
+    <h2>Retention, deletion, and privacy choices</h2>
+    <p>Local data remains on your Mac until you remove Pinaday's app data. Removing text or an image from a note may not immediately remove every cached or stored file associated with it.</p>
+    <p>Data synchronized through iCloud remains in your private iCloud storage until you delete the app's stored data using Apple's <a href={iCloudStorageUrl} target="_blank" rel="noopener">iCloud storage-management controls</a>.</p>
+    <p>You can stop future iCloud synchronization at any time by selecting Local only in Pinaday Settings or disabling Pinaday in macOS iCloud settings. Switching to Local only does not automatically delete data previously stored in iCloud.</p>
+    <p>Because Pinaday does not operate user accounts or store a separate copy of note data on developer servers, the developer cannot directly retrieve or delete private CloudKit records on your behalf. For assistance, contact <a href={`mailto:${email}`}>{email}</a>.</p>
+
+    <h2>Support email</h2>
+    <p>If you contact support by email, the information you provide is used only to respond to your request and maintain necessary support records. You may request deletion of a support conversation by emailing <a href={`mailto:${email}`}>{email}</a>.</p>
+
+    <h2>Website visits</h2>
+    <p>This website is hosted on GitHub Pages and currently loads fonts from Google Fonts. GitHub and Google may receive ordinary web-request information when someone visits this page. This website-hosting activity is separate from data handled by the Pinaday macOS application.</p>
+
+    <h2>Policy changes</h2>
+    <p>This policy may be updated when Pinaday's features or data practices change. The date at the top of this page identifies the latest revision.</p>
+
+    <h2>Contact</h2>
+    <p>For privacy or support questions, email <a href={`mailto:${email}`}>{email}</a>.</p>
+    <p><a href="/pinaday">Back to Pinaday</a></p>
+  </section>
+</Base>
