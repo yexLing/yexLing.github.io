@@ -20,6 +20,7 @@
 
   --maxw: 1180px;  /* content caps here; fluid (full width) on anything narrower */
   --radius: 6px;
+  --reading-offset: 5.5rem;
 
   --font-display: "Fraunces", Georgia, "Times New Roman", serif;
   --font-body: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI",
@@ -282,14 +283,43 @@ section { margin: 3.25rem 0; }
   font-size: 1.06rem;
   overflow-wrap: break-word;
 }
-.prose h2 { margin-top: 2.25rem; font-size: 1.4rem; }
-.prose h3 { margin-top: 1.75rem; }
+.prose :is(h1, h2, h3, h4, h5, h6) {
+  font-family: var(--font-body);
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 1.4;
+  color: var(--text);
+  text-wrap: pretty;
+}
+.prose :is(h1, h2) {
+  margin: 3.25rem 0 1.5rem;
+  padding: 0.85rem 0;
+  border-block: 1px solid color-mix(in srgb, var(--text) 18%, var(--line));
+}
+.prose h1 { font-size: 2rem; }
+.prose h2 { font-size: 1.65rem; }
+.prose h3 {
+  margin: 2.5rem 0 1rem;
+  padding-left: 0.75rem;
+  border-left: 3px solid var(--seal);
+  font-size: 1.3rem;
+}
+.prose h4 { margin: 1.75rem 0 0.75rem; font-size: 1.15rem; }
+.prose h5 { margin: 1.5rem 0 0.75rem; font-size: 1.08rem; }
+.prose h6 { margin: 1.5rem 0 0.75rem; font-size: 1.02rem; }
+.prose > :is(h1, h2):first-child { margin-top: 0; }
+@media (max-width: 560px) {
+  .prose h1 { font-size: 1.8rem; }
+  .prose h2 { font-size: 1.5rem; }
+  .prose h3 { font-size: 1.2rem; }
+}
 .prose a {
   text-decoration: underline;
   text-underline-offset: 3px;
   overflow-wrap: anywhere;
 }
 .prose .footnotes { overflow-wrap: anywhere; }
+.prose table { display: block; max-width: 100%; overflow-x: auto; }
 .prose pre {
   background: var(--surface-2); padding: 1rem 1.1rem; border-radius: var(--radius);
   border: 1px solid var(--line); overflow-x: auto;
@@ -698,8 +728,13 @@ section { margin: 3.25rem 0; }
 }
 
 /* ---------- Post layout: sticky TOC sidebar ---------- */
+@media (max-width: 420px) {
+  :root { --reading-offset: 7rem; }
+  .nav { flex-wrap: wrap; gap: 0.5rem; }
+  .nav ul { order: 1; width: 100%; justify-content: space-between; }
+}
 html { scroll-behavior: smooth; }
-.prose :is(h2, h3) { scroll-margin-top: 5.5rem; }
+.prose :is(h1, h2, h3, h4, h5, h6) { scroll-margin-top: var(--reading-offset); }
 .post-grid {
   display: grid;
   grid-template-columns: 240px minmax(0, 1fr);
@@ -749,7 +784,7 @@ html { scroll-behavior: smooth; }
 /* ---------- Citation popup, reference anchors, back-to-reading ---------- */
 /* Anchor targets inside the reference list must clear the sticky header,
    same as headings do. */
-.prose li[id^="ref-"], #references { scroll-margin-top: 5.5rem; }
+.prose li[id^="ref-"], #references { scroll-margin-top: var(--reading-offset); }
 
 .ref-popup {
   position: fixed; z-index: 40;
@@ -759,18 +794,37 @@ html { scroll-behavior: smooth; }
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
   padding: 0.9rem 1rem 0.75rem;
   font-size: 0.85rem; line-height: 1.55;
+  max-height: calc(100dvh - 24px);
+  overflow-y: auto;
 }
-.ref-popup-body { color: var(--text); }
+.ref-popup-body { color: var(--text); overflow-wrap: anywhere; }
 .ref-popup-body a { color: var(--seal); }
-.ref-popup-actions { display: flex; gap: 0.5rem; margin-top: 0.7rem; align-items: center; }
-.ref-popup-actions button {
-  font-size: 0.78rem; padding: 0.25rem 0.6rem;
+.ref-popup-actions { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.7rem; align-items: center; }
+.ref-popup-actions :is(button, a) {
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.35rem;
+  min-height: 2rem;
+  font: inherit; font-size: 0.78rem; line-height: 1.4; padding: 0.3rem 0.55rem;
   border: 1px solid var(--line); border-radius: 4px;
   background: transparent; color: var(--muted); cursor: pointer;
+  text-decoration: none; white-space: nowrap;
   transition: border-color .15s, color .15s;
 }
-.ref-popup-actions button:hover { border-color: var(--seal); color: var(--seal); }
-.ref-popup-close { margin-left: auto; }
+.ref-popup-actions [hidden] { display: none; }
+.ref-popup-actions :is(button, a):hover { border-color: var(--seal); color: var(--seal); }
+.ref-popup-actions svg { flex-shrink: 0; }
+.ref-popup-actions .ref-popup-open { color: var(--seal); }
+.ref-popup-copy { min-width: 4.75rem; }
+.ref-popup-actions .ref-popup-close { margin-left: auto; width: 2rem; padding: 0; }
+@media (max-width: 560px) {
+  .ref-popup { padding: 0.8rem; }
+  .ref-popup-body { padding-right: 2.1rem; }
+  .ref-popup-actions { gap: 0.4rem; }
+  .ref-popup-actions :is(button, a) { min-height: 2.5rem; }
+  .ref-popup-actions .ref-popup-close {
+    position: absolute; top: 0.4rem; right: 0.4rem;
+    width: 2.5rem; border-color: transparent;
+  }
+}
 
 .ref-flash { animation: ref-flash 1.6s ease-out 1; border-radius: 4px; }
 @keyframes ref-flash {

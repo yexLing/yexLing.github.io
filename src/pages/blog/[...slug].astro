@@ -1,6 +1,8 @@
 ---
 import { getCollection } from 'astro:content';
+import { Copy, ExternalLink, List, X } from '@lucide/astro';
 import Base from '../../layouts/Base.astro';
+import PostCitation from '../../components/PostCitation.astro';
 import { t, formatDate } from '../../i18n/ui';
 
 export async function getStaticPaths() {
@@ -25,10 +27,13 @@ const tocItems = headings
 if (hasRefs) {
   tocItems.push({ depth: 2, slug: 'references', text: locale === 'zh' ? '参考文献' : 'References' });
 }
+tocItems.push({ depth: 2, slug: 'citation', text: locale === 'zh' ? '引用本文' : 'Citation' });
 const hasToc = tocItems.length > 2;
 const tocTitle = locale === 'zh' ? '目录' : 'Contents';
 const labels = {
   view: locale === 'zh' ? '在列表中查看' : 'View in list',
+  open: locale === 'zh' ? '打开链接' : 'Open link',
+  openHint: locale === 'zh' ? '在新标签页打开第一个来源链接' : 'Open the first source link in a new tab',
   copy: locale === 'zh' ? '复制' : 'Copy',
   copied: locale === 'zh' ? '已复制' : 'Copied',
   back: locale === 'zh' ? '↩ 返回阅读位置' : '↩ Back to reading',
@@ -68,6 +73,7 @@ const lBase = locale === "zh" ? "/zh" : "";
         </details>
         <div class="prose">
           <Content />
+          <PostCitation post={post} />
         </div>
         <a class="back-link" href={`${lBase}${base}blog`}>{t(locale, 'section.backBlog')}</a>
       </div>
@@ -76,6 +82,7 @@ const lBase = locale === "zh" ? "/zh" : "";
     <>
       <div class="prose">
         <Content />
+        <PostCitation post={post} />
       </div>
       <a class="back-link" href={`${lBase}${base}blog`}>{t(locale, 'section.backBlog')}</a>
     </>
@@ -85,9 +92,10 @@ const lBase = locale === "zh" ? "/zh" : "";
       <div class="ref-popup" id="ref-popup" hidden>
         <div class="ref-popup-body"></div>
         <div class="ref-popup-actions">
-          <button type="button" class="ref-popup-view">{labels.view}</button>
-          <button type="button" class="ref-popup-copy" data-label={labels.copy} data-copied={labels.copied}>{labels.copy}</button>
-          <button type="button" class="ref-popup-close" aria-label={labels.close}>×</button>
+          <button type="button" class="ref-popup-view" title={labels.view}><List size={14} aria-hidden="true" />{labels.view}</button>
+          <a class="ref-popup-open" target="_blank" rel="noopener noreferrer" title={labels.openHint} hidden><ExternalLink size={14} aria-hidden="true" />{labels.open}</a>
+          <button type="button" class="ref-popup-copy" title={labels.copy} data-label={labels.copy} data-copied={labels.copied}><Copy size={14} aria-hidden="true" /><span class="ref-popup-copy-label" aria-live="polite">{labels.copy}</span></button>
+          <button type="button" class="ref-popup-close" aria-label={labels.close} title={labels.close}><X size={16} aria-hidden="true" /></button>
         </div>
       </div>
       <button type="button" class="back-to-reading" id="back-to-reading" hidden>{labels.back}</button>
@@ -152,7 +160,9 @@ const lBase = locale === "zh" ? "/zh" : "";
   if (prose && popup && refsDetails) {
     const popupBody = popup.querySelector('.ref-popup-body');
     const viewBtn = popup.querySelector('.ref-popup-view');
+    const openLink = popup.querySelector('.ref-popup-open');
     const copyBtn = popup.querySelector('.ref-popup-copy');
+    const copyLabel = popup.querySelector('.ref-popup-copy-label');
     const closeBtn = popup.querySelector('.ref-popup-close');
     const backBtn = document.getElementById('back-to-reading');
     let currentLi = null;
@@ -168,7 +178,17 @@ const lBase = locale === "zh" ? "/zh" : "";
         e.preventDefault();
         currentLi = li;
         popupBody.innerHTML = li.innerHTML;
-        copyBtn.textContent = copyBtn.dataset.label;
+        // Use the first web source for the shortcut; keep every source clickable.
+        const sourceLinks = Array.from(popupBody.querySelectorAll('a[href]'))
+          .filter((link) => link.protocol === 'https:' || link.protocol === 'http:');
+        sourceLinks.forEach((link) => {
+          link.target = '_blank';
+          link.rel = 'noopener noreferrer';
+        });
+        openLink.hidden = sourceLinks.length === 0;
+        if (sourceLinks.length) openLink.href = sourceLinks[0].href;
+        else openLink.removeAttribute('href');
+        copyLabel.textContent = copyBtn.dataset.label;
         popup.hidden = false;
         const r = a.getBoundingClientRect();
         const pw = Math.min(430, window.innerWidth - 24);
@@ -219,9 +239,9 @@ const lBase = locale === "zh" ? "/zh" : "";
       if (srcLink) text += ' — ' + srcLink.href;
       try {
         await copyText(text);
-        copyBtn.textContent = copyBtn.dataset.copied;
+        copyLabel.textContent = copyBtn.dataset.copied;
       } catch (e) {
-        copyBtn.textContent = '✗';
+        copyLabel.textContent = '✗';
       }
     });
 

@@ -1,0 +1,81 @@
+---
+import { Copy } from '@lucide/astro';
+import { postCitation } from '../utils/post-citation.mjs';
+
+const { post } = Astro.props;
+const isZh = post.data.locale === 'zh';
+const citation = postCitation({
+  ...post.data,
+  slug: post.slug,
+  pathname: Astro.url.pathname,
+  site: Astro.site,
+});
+const labels = {
+  heading: isZh ? '引用本文' : 'Citation',
+  intro: isZh ? '如需引用本文，请使用以下格式：' : 'Please cite this work as:',
+  bibtex: isZh ? '或使用 BibTeX：' : 'Or use the BibTeX citation:',
+  copy: isZh ? '复制引用' : 'Copy citation',
+  copyBibtex: isZh ? '复制 BibTeX' : 'Copy BibTeX',
+  copied: isZh ? '已复制' : 'Copied',
+  failed: isZh ? '复制失败，请手动选择文本' : 'Could not copy. Please select the text manually.',
+};
+---
+
+<section class="post-citation" aria-labelledby="citation">
+  <h2 id="citation">{labels.heading}</h2>
+  <p>{labels.intro}</p>
+  <p id="citation-text">Yex Ling. “{post.data.title}”. {citation.journal} ({citation.date}). <a href={citation.url}>{citation.url}</a></p>
+  <div class="citation-actions">
+    <button type="button" data-copy-citation="citation-text" data-label={labels.copy} data-copied={labels.copied} data-failed={labels.failed} title={labels.copy}>
+      <Copy size={14} aria-hidden="true" /><span>{labels.copy}</span>
+    </button>
+    <span class="citation-status" role="status"></span>
+  </div>
+  <p>{labels.bibtex}</p>
+  <pre><code id="citation-bibtex" class="language-bibtex">{citation.bibtex}</code></pre>
+  <div class="citation-actions">
+    <button type="button" data-copy-citation="citation-bibtex" data-label={labels.copyBibtex} data-copied={labels.copied} data-failed={labels.failed} title={labels.copyBibtex}>
+      <Copy size={14} aria-hidden="true" /><span>{labels.copyBibtex}</span>
+    </button>
+    <span class="citation-status" role="status"></span>
+  </div>
+</section>
+
+<style>
+  .post-citation { margin-top: 3.25rem; }
+  .post-citation pre { white-space: pre-wrap; overflow-wrap: anywhere; }
+  .citation-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 0.75rem; }
+  .citation-actions button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    min-height: 2.25rem;
+    padding: 0.4rem 0.65rem;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    background: transparent;
+    color: var(--muted);
+    font: inherit;
+    font-size: 0.85rem;
+    cursor: pointer;
+  }
+  .citation-actions button:hover { border-color: var(--seal); color: var(--seal); }
+  .citation-actions button:focus-visible { outline: 2px solid var(--seal); outline-offset: 3px; }
+  .citation-status { color: var(--muted); font-size: 0.85rem; }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLButtonElement>('[data-copy-citation]').forEach((button) => {
+    button.addEventListener('click', async () => {
+      const source = document.getElementById(button.dataset.copyCitation!);
+      const status = button.parentElement?.querySelector('[role="status"]');
+      if (!source || !status) return;
+      try {
+        await navigator.clipboard.writeText(source.textContent?.trim() ?? '');
+        status.textContent = button.dataset.copied!;
+      } catch {
+        status.textContent = button.dataset.failed!;
+      }
+    });
+  });
+</script>
